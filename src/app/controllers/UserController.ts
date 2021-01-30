@@ -5,9 +5,16 @@ import User from '../models/User';
 const store = async (request: Request, response: Response) => {
   const userRespository = getRepository(User);
 
+  const userExists = await userRespository.findOne({
+    email: request.body.email,
+  });
+
+  if (userExists) {
+    return response.status(400).json({ message: 'User already exists.' });
+  }
+
   const user = userRespository.create(request.body);
   const result = await userRespository.save(user);
-
   return response.json(result);
 };
 
@@ -27,6 +34,8 @@ const show = async (request: Request, response: Response) => {
 
   const user = await userRespository.findOne(request.params.id);
 
+  if (!user) return response.status(404).json({ message: 'User not found.' });
+
   return response.json(user);
 };
 
@@ -34,6 +43,8 @@ const destroy = async (request: Request, response: Response) => {
   const userRespository = getRepository(User);
 
   const user = await userRespository.findOne(request.params.id);
+
+  if (!user) return response.status(404).json({ message: 'User not found.' });
 
   const result = await userRespository.delete(user.id);
 
@@ -44,6 +55,8 @@ const update = async (request: Request, response: Response) => {
   const userRespository = getRepository(User);
 
   const user = await userRespository.findOne(request.params.id);
+
+  if (!user) return response.status(404).json({ message: 'User not found.' });
 
   const result = userRespository.merge(user, request.body);
 
