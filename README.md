@@ -10,7 +10,7 @@
 
 ## :rocket: Technologies
 
-This project was developed by Vinícius Coelho for studying purposes with the following technologies:
+This project was developed by **Vinícius Coelho** for studying purposes with the following technologies:
 
 -  [NodeJS](https://reactnative.dev/)
 -  [Express](https://expressjs.com/)
