@@ -21,10 +21,10 @@
             "error",
             "ignorePackages",
             {
-              "js": "never",
-              "jsx": "never",
-              "ts": "never",
-              "tsx": "never"
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
             }
         ],
         "class-methods-use-this": "off"
@@ -32,7 +32,12 @@
     "settings": {
         "import/resolver": {
             "node": {
-              "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
         }
     }
