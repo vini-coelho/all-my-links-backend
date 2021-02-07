@@ -5,7 +5,7 @@ module.exports = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: process.env.ENV === 'dev',
+  synchronize: false,
   logging: false,
   entities: [
     'src/app/models/**/*.ts',
@@ -21,4 +21,5 @@ module.exports = {
     migrationsDir: 'src/database/migrations',
     subscribersDir: 'src/subscriber',
   },
+  migrationsRun: true
 };
