@@ -21,10 +21,9 @@ const store = async (request: Request, response: Response) => {
 const index = async (request: Request, response: Response) => {
   const userRespository = getRepository(User);
 
-  const users = await userRespository
-    .createQueryBuilder('user')
-    .leftJoinAndSelect('user.links', 'link')
-    .getMany();
+  const users = await userRespository.find({
+    relations: ['links'],
+  });
 
   return response.json(users);
 };
@@ -32,7 +31,27 @@ const index = async (request: Request, response: Response) => {
 const show = async (request: Request, response: Response) => {
   const userRespository = getRepository(User);
 
-  const user = await userRespository.findOne(request.params.id);
+  const { id } = request.params;
+
+  const user = await userRespository.findOne(id, {
+    relations: ['links'],
+  });
+
+  if (!user) return response.status(404).json({ message: 'User not found.' });
+
+  return response.json(user);
+};
+
+const showByUsername = async (request: Request, response: Response) => {
+  const userRespository = getRepository(User);
+
+  const { username } = request.params;
+  const user = await userRespository.findOne({
+    where: {
+      username,
+    },
+    relations: ['links'],
+  });
 
   if (!user) return response.status(404).json({ message: 'User not found.' });
 
@@ -68,5 +87,5 @@ const update = async (request: Request, response: Response) => {
 };
 
 export default {
-  store, index, show, update, destroy,
+  store, index, show, showByUsername, update, destroy,
 };

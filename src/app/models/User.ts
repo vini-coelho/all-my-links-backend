@@ -11,25 +11,32 @@ import Link from './Link';
 
 @Entity('users')
 export default class User {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    email: string;
+  @Column({
+    unique: true,
+  })
+  username: string;
 
-    @Column()
-    password: string;
+  @Column({
+    unique: true,
+  })
+  email: string;
 
-    @OneToMany(() => Link, (link) => link.user)
-    @JoinColumn()
-    links: Link[]
+  @Column()
+  password: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @OneToMany(() => Link, (link) => link.user)
+  @JoinColumn()
+  links: Link[]
 
-    @UpdateDateColumn()
-    updated_at: Date;
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
