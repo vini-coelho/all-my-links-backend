@@ -42,8 +42,7 @@
    },
    "scripts": {
       "start": "ts-node src/index.ts",
-      "postinstall": "tsc",
-      "watch-ts": "tsc -w",
+      "postinstall": "ts-node ./node_modules/typeorm/cli.js migration:run",
       "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
       "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/index.ts"
    }
